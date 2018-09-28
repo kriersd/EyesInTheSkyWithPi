@@ -9,9 +9,11 @@
 ## Overview
 
 **Here are the links to other blogs and github pages for reference**
-https://blog.alexellis.io/track-flights-with-rpi/
-https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile
-https://github.com/LoungeFlyZ/eyes-in-the-sky
+Here are some good links to reference. We are using some of the information in these links to build our docker images. 
+
+- https://blog.alexellis.io/track-flights-with-rpi/
+- https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile
+- https://github.com/LoungeFlyZ/eyes-in-the-sky
 
 
 **What You Need**
@@ -54,11 +56,11 @@ https://www.duckdns.org/
 **Note**: _I had to make one minor change to the duck.sh script because it wasn't picking up the right ip address. You will need to add your own token and your domain name of course_
 
 ```
-    ip=($( ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -c 14-25))
+ip=($( ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -c 14-25))
 
-    echo ${ip}
+echo ${ip}
 
-    echo url="https://www.duckdns.org/update?domains=<your domain>&token=<your token>&ip="${ip} | curl -k -o ~/d
+echo url="https://www.duckdns.org/update?domains=<your domain>&token=<your token>&ip="${ip} | curl -k -o ~/d
 uckdns/duck.log -K -
 ```
 
