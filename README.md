@@ -26,26 +26,32 @@ Here is what you need:
 # Setup & Configuration of the Raspberry Pi
 
 
-**Download and install OS on SSD Card**
-- Download the OS ZIP for Rasparian Stretch with Desktop (I use desktop) 
+##Download and install OS on SSD Card
+- Download the OS ZIP for Rasparian Stretch with Desktop (I use desktop). I won't go into details here because it's fairly simple. I use a macbook pro, so I have a SD Slot on my machine. I simply download the Raspbian image and use Etcher to load the image on my SD card. Once that's done all you need to do is boot the Pi up and finsih the inital setup. 
     - https://www.raspberrypi.org/downloads/raspbian/
 - Download Etcher to burn the image to the SSD Card. 
     - https://etcher.io/
 - Boot your Raspberry Pi and configure the OS
 	- Setup WIFI
+    - enalbe SSH
+    - **CHANGE THE PASSWORD FOR USER pi**
 
 ##Setup Dynamic DNS
 
-I use duckdns.org to setup my dynamic IP address on the Pi. I do this because I am using my phone's hotspot and the ip address changes every time my Pi boots. 
+I use duckdns.org to setup my dynamic IP address on the Pi. I do this because I am often using my phone's hotspot for internet connectivity and the ip address changes every time my Pi boots. You will need to know the IP address of your pi to ssh into the pi from a terminal window. 
 
+**note**: _I have found that must also have my laptop connected to my phone's hotspot in order to ssh into my pi. That may not be the case for for everyone. Just to be safe, I would connect your laptop to the same hotspot as your pi when you want to ssh into the pi_
+
+Go to this site for the instructions to setup and configuration dynamic dns on your pi. 
 https://www.duckdns.org/
 - sign in to the site. 
+    - You can use Twitter, Facebook, Google, or Reddit to sign in. (Quick and easy!!)
 - create a dynamic domain name
 - Configure your Pi to send the IP address to the server, so the domain name gets updated with the IP address at boot. 
-	- Follow these instructions
+	- Follow these instructions here: 
         - http://www.duckdns.org/install.jsp
 
-**Note**: _I had to make one minor change to the duck.sh script._
+**Note**: _I had to make one minor change to the duck.sh script because it wasn't picking up the right ip address. You will need to add your own token and your domain name of course_
 
 ```
     ip=($( ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -c 14-25))
@@ -61,5 +67,11 @@ uckdns/duck.log -K -
 Follow these instructions to enable ssh on the pi. You then do not need to have a monitor hooked up to connect. 
 https://www.raspberrypi.org/documentation/remote-access/ssh
 
+**Reboot your Pi**
+Now you should be able to ssh into your pi using your terminal window on your laptop. 
+
+```
+ssh pi@<yourdomainname>.duckdns.org
+```
 
 ---
