@@ -6,32 +6,60 @@
 
 ---
 
-### Agenda Overview
+## Overview
 
-**Presentation and Discussion**
-
-In this segment we'll talk through the basics:
-- What are "containers" and where did they come from?
-- What's the difference between containers and Virtual machines?
-- What's "container orchestration" and what's [Kubernetes](https://kubernetes.io/) all about?
-- How does this change things for applications today?
-
-**Exercises**
-
-- [lab 00](lab00/README.md): Creating a working environment
-- [lab 01](lab01/README.md): Running your first docker container
-- [lab 02](lab02/README.md): Building your own docker container
-
-**Getting Started with kubernetes**
-
-- [lab 03](lab03/README.md): Running Kubernetes with IBM Cloud Private
-- [lab 04](lab04/README.md): Deploying a container to Kubernetes
-
-**Deploying an application on kubernetes**
-
-- [lab 05](lab05/README.md): Containerize and deploy a node.js application
+**Here are the links to other blogs and github pages for reference**
+https://blog.alexellis.io/track-flights-with-rpi/
+https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile
+https://github.com/LoungeFlyZ/eyes-in-the-sky
 
 
-**Questions?**
+**What You Need**
+
+Here is what you need:
+- RasperyPi Device
+- MicroSD card
+- NooElec ADSB Reciever
+- A desire to learn
+- A little bit of Linux skill (Just a little)
+
+# Setup & Configuration of the Raspberry Pi
+
+
+**Download and install OS on SSD Card**
+- Download the OS ZIP for Rasparian Stretch with Desktop (I use desktop) 
+    - https://www.raspberrypi.org/downloads/raspbian/
+- Download Etcher to burn the image to the SSD Card. 
+    - https://etcher.io/
+- Boot your Raspberry Pi and configure the OS
+	- Setup WIFI
+
+##Setup Dynamic DNS
+
+I use duckdns.org to setup my dynamic IP address on the Pi. I do this because I am using my phone's hotspot and the ip address changes every time my Pi boots. 
+
+https://www.duckdns.org/
+- sign in to the site. 
+- create a dynamic domain name
+- Configure your Pi to send the IP address to the server, so the domain name gets updated with the IP address at boot. 
+	- Follow these instructions
+        - http://www.duckdns.org/install.jsp
+
+**Note**: _I had to make one minor change to the duck.sh script._
+
+```
+    ip=($( ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -c 14-25))
+
+    echo ${ip}
+
+    echo url="https://www.duckdns.org/update?domains=<your domain>&token=<your token>&ip="${ip} | curl -k -o ~/d
+uckdns/duck.log -K -
+```
+
+##Setup SSH on the Pi** 
+
+Follow these instructions to enable ssh on the pi. You then do not need to have a monitor hooked up to connect. 
+https://www.raspberrypi.org/documentation/remote-access/ssh
+
 
 ---
