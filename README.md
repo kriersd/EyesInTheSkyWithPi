@@ -15,13 +15,19 @@ Here are some good links to reference. We are using some of the information in t
 - https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile
 - https://github.com/LoungeFlyZ/eyes-in-the-sky
 
+**What is ADS-B**
+Modern aircraft have automatic transponders on board which gather info from navigational instruments and broadcast it to the surrounding area using ADS-B. It's not encrypted so anyone can pick it up whether you're a flight controller, another plane or even a Raspberry Pi owner.
+
+Automatic dependent surveillance – broadcast (ADS–B) is a surveillance technology in which an aircraft determines its position via satellite navigation and periodically broadcasts it, enabling it to be tracked -- Wikipedia
 
 **What You Need**
 
 Here is what you need:
-- RasperyPi Device
+- RasperyPi Device 
+    - I would recommend using a Raspberry Pi 2 or 3 because it has more memory available and is better suited to multi-tasking.
 - MicroSD card
 - NooElec ADSB Reciever
+    - NooElec NESDR Mini 2+ 0.5PPM TCXO RTL-SDR & ADS-B USB Receiver Set w/ Antenna, Suction Mount, Female SMA Adapter & Remote Control, RTL2832U & R820T2 Tuner
 - A desire to learn
 - A little bit of Linux skill (Just a little)
 
@@ -75,5 +81,130 @@ Now you should be able to ssh into your pi using your terminal window on your la
 ```
 ssh pi@<yourdomainname>.duckdns.org
 ```
+
+##Install Docker on the Pi
+We need to install Docker on the Pi, so that we can pull some images down from docker hub and deploy them as running continaers on the pi. 
+
+
+```
+curl -sSL https://get.docker.com | sh
+```
+
+Once this completes, we can test it by runnig the docker help command 
+
+```
+docker --help
+```
+
+If successful, that should show you the help menu for the docker command. 
+
+We need to give the pi user is lacking permissions to access the unix socket to communicate with the engine. If we do not do this, we will see an error when you try to run a docker image. 
+
+```
+sudo usermod -a -G docker pi
+```
+**Reboot**
+```
+sudo reboot now
+```
+We should be all good to go now.. Let's try running a very simple Docker image. Run this command to pull down a docker image and run it. 
+```
+docker run hello-world
+```
+If successful, you should see something like this. 
+
+```
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+61e750ce94d2: Pull complete 
+Digest: sha256:0add3ace90ecb4adbf7777e9aacf18357296e799f81cabc9fde470971e499788
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (arm32v7)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+```
+
+
+##Clone the follow Github repository 
+
+We will now pull down the github repository with the required files to build our image. 
+
+Navigate your terminal window to your home directory and execute the git clone command. 
+
+If you just type cd and enter that will put you in your home directory. We do this because the next command will create a directory and you need to have authority to create directories. Also, you need to know where it is for later. 
+
+```
+cd
+```
+Now let's clone that directory. 
+```
+git clone https://github.com/alexellis/eyes-in-the-sky
+```
+##Blacklist the USB TV stick
+In order for the dump1090 software to access the USB TV stick we have to create a blacklist entry for its kernel module.
+
+- Edit the /etc/modprobe.d/blacklist.conf
+    - I use nano as my editor. The Pi should have this editor already installed if you followed my instructions to setup the pi. 
+```
+sudo nano /etc/modprobe.d/blacklist.conf
+```
+
+This will bring you to the nano editor and source the blacklist.conf file. Add the following line to the bottom of the file and save your changes. You may find that this file is actually empty and that's ok. Just add the line below and save it. 
+
+```
+blacklist dvb_usb_rtl28xxu
+```
+**Note**: To save your changes using nano [ctl+x], select y, and hit enter. 
+
+## REBOOT YOUR PI
+```
+sudo reboot now
+```
+
+It will take a few minutes to reboot your Pi. Once it's back on-line you can ssh back into the pi. 
+
+```
+ssh pi@<yourdomain>.duckdns.org
+```
+
+##Build the docker image. 
+Change directory to this folder. You should be at your home directory as soon as you log in. 
+```
+cd eyes-in-the-sky/
+```
+
+Now run the build (This is all one command)
+```
+docker build -t alexellis2/dump1090:malcolmrobb . -f Dockerfile.malcolmrobb
+```
+-t is how we specify the image name for use later
+-f allows us to pick a Dockerfile with a custom name, I've provided one for mutability's fork too.
+
+There is already an image in the docker hub that we could have used, but we wanted to show you how you can build your own image using the docker file. Take a look at the dockerfile to see all the steps necessary to build this image. It's located in your home/eyes-in-the-sky folder. 
+
+We could have just pulled the image down from docker hub using the following command, but that wouldn't be as much fun!. You don't need to run this command, I just wanted to show you what the pull command looks like. 
+
+```
+$ docker pull alexellis2/dump1090:malcolmrobb
+```
+##Test the dump1090 Docker image
 
 ---
