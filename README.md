@@ -34,7 +34,7 @@ Here is what you need:
 # Setup & Configuration of the Raspberry Pi
 
 
-##Download and install OS on SSD Card
+## Download and install OS on SSD Card
 - Download the OS ZIP for Rasparian Stretch with Desktop (I use desktop). I won't go into details here because it's fairly simple. I use a macbook pro, so I have a SD Slot on my machine. I simply download the Raspbian image and use Etcher to load the image on my SD card. Once that's done all you need to do is boot the Pi up and finsih the inital setup. 
     - https://www.raspberrypi.org/downloads/raspbian/
 - Download Etcher to burn the image to the SSD Card. 
@@ -44,7 +44,7 @@ Here is what you need:
     - enalbe SSH
     - **CHANGE THE PASSWORD FOR USER pi**
 
-##Setup Dynamic DNS
+## Setup Dynamic DNS
 
 I use duckdns.org to setup my dynamic IP address on the Pi. I do this because I am often using my phone's hotspot for internet connectivity and the ip address changes every time my Pi boots. You will need to know the IP address of your pi to ssh into the pi from a terminal window. 
 
@@ -70,7 +70,7 @@ echo url="https://www.duckdns.org/update?domains=<your domain>&token=<your token
 uckdns/duck.log -K -
 ```
 
-##Setup SSH on the Pi** 
+## Setup SSH on the Pi** 
 
 Follow these instructions to enable ssh on the pi. You then do not need to have a monitor hooked up to connect. 
 https://www.raspberrypi.org/documentation/remote-access/ssh
@@ -82,7 +82,7 @@ Now you should be able to ssh into your pi using your terminal window on your la
 ssh pi@<yourdomainname>.duckdns.org
 ```
 
-##Install Docker on the Pi
+## Install Docker on the Pi
 We need to install Docker on the Pi, so that we can pull some images down from docker hub and deploy them as running continaers on the pi. 
 
 
@@ -143,7 +143,7 @@ For more examples and ideas, visit:
 ```
 
 
-##Clone the follow Github repository 
+## Clone the follow Github repository 
 
 We will now pull down the github repository with the required files to build our image. 
 
@@ -158,7 +158,7 @@ Now let's clone that directory.
 ```
 git clone https://github.com/alexellis/eyes-in-the-sky
 ```
-##Blacklist the USB TV stick
+## Blacklist the USB TV stick
 In order for the dump1090 software to access the USB TV stick we have to create a blacklist entry for its kernel module.
 
 - Edit the /etc/modprobe.d/blacklist.conf
@@ -185,7 +185,7 @@ It will take a few minutes to reboot your Pi. Once it's back on-line you can ssh
 ssh pi@<yourdomain>.duckdns.org
 ```
 
-##Build the docker image. 
+## Build the docker image. 
 Change directory to this folder. You should be at your home directory as soon as you log in. 
 ```
 cd eyes-in-the-sky/
@@ -205,6 +205,6 @@ We could have just pulled the image down from docker hub using the following com
 ```
 $ docker pull alexellis2/dump1090:malcolmrobb
 ```
-##Test the dump1090 Docker image
+## Test the dump1090 Docker image
 
 ---
