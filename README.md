@@ -203,8 +203,73 @@ There is already an image in the docker hub that we could have used, but we want
 We could have just pulled the image down from docker hub using the following command, but that wouldn't be as much fun!. You don't need to run this command, I just wanted to show you what the pull command looks like. 
 
 ```
-$ docker pull alexellis2/dump1090:malcolmrobb
+docker pull alexellis2/dump1090:malcolmrobb
 ```
 ## Test the dump1090 Docker image
+```
+docker rm -f 1090 # remove any old container
+
+docker run --privileged -p 8080:8080 -p 30005:30005 -p 30003:30003 --privileged --name 1090 -d alexellis2/dump1090:malcolmrobb
+```
+
+The docker run command is responsible for starting our code. 
+
+- the -p flag is used to tell Docker which ports to expose from the container. You can run two copies of the dump1090 code by changing the port number and name on your Docker container.
+
+- the -d flag puts the container into the background as a daemon, so if you want to see the console output just type in docker logs --tail 20 -f 1090
+
+**View the web page produced by this container** : http://<PI IP Address>:8080/
+**Note** _You can use your domainname.duckdns.org:8080 instead of the ip address. Both should work!_
+- You will need to move the map to your location to see aircraft in your area. My range is aobut 100 Miles. 
+
+To remove the image you can use this command
+**Note**: You will need to issue the full docker run command (above) to restart the container from the image if you issue the _docker rm_ command. 
+**Remember** containers are a runable instance of the image. 
+
+```
+docker rm -f 1090
+```
+
+To stop the container you can use this command
+**Note**: It will use the same parameters as defined in the run command. 
+```
+docker stop 1090
+```
+
+To start the container again you can use this command. 
+```
+docker start 1090.
+```
+
+## Let's look at Docker stuff
+
+You can issue the docker command to list all images in your local respository. 
+```
+docker images
+```
+
+Take a look at the output of this command. You should see multiple images if you followed all the instructions. This is because we loaded the hello-world as well as the dump1090 image. These are images, not the runable containers. 
+```
+REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+hello-world           latest              b7012647d53a        2 weeks ago         1.64kB
+alexellis2/dump1090   malcolmrobb         a50c1e10a8ec        14 months ago       298MB
+```
+
+Take a look at the docker processes (containers) on this machine. 
+```
+docker ps
+```
+These are the containers running at this very moment on the docker engine. If we stop the continers they will not show up here. 
+
+If you want to see ALL the docker containers (even the ones we don't have running) try this command. 
+```
+docker ps -a
+```
+- the -a command will list ALL containers. 
+- You will probably notice a few more containers in this list, but soem of them have an exit status. 
+
+## 
+
+
 
 ---
