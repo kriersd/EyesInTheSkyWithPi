@@ -15,6 +15,8 @@ Here are some good links to reference. We are using some of the information in t
 - https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile
 - https://github.com/LoungeFlyZ/eyes-in-the-sky
 
+- https://flightaware.com/adsb/piaware/install
+
 **What is ADS-B**
 Modern aircraft have automatic transponders on board which gather info from navigational instruments and broadcast it to the surrounding area using ADS-B. It's not encrypted so anyone can pick it up whether you're a flight controller, another plane or even a Raspberry Pi owner.
 
@@ -238,7 +240,7 @@ docker stop 1090
 
 To start the container again you can use this command. 
 ```
-docker start 1090.
+docker start 1090
 ```
 
 ## Let's look at Docker stuff
@@ -268,7 +270,44 @@ docker ps -a
 - the -a command will list ALL containers. 
 - You will probably notice a few more containers in this list, but soem of them have an exit status. 
 
-## 
+## Installing FlightAware
+There are several flight-tracking websites available, but lets start  out with this one. Their software connects to your dump1090 code and streams your data to their online servers where you can collate statistics and compare your range and statistics with others through leaderboards.
+
+You will need an account on the FlightAware.com website. 
+- Now sign up on the FlightAware.com website for a username and password.
+
+**Note**: Don't forget the dot at the end of the command. 
+```
+cd eyes-in-the-sky/flightaware
+docker build -t alexellis2/flightaware:3.5.0 .
+```
+
+Edit the /eyes-in-the-sky/flightaware/piaware.conf file replacing the following fields. 
+- receiver-host  
+    - (Use the Pi's IP address or the domainname.duckdns.org address)
+    - Just note that if you use the ip address it may change later. 
+- flightaware -user
+- flightaware -password
+```
+sudo nano piaware.conf
+```
+FlightAware has a smart feature to track your Raspberry Pi by MAC address - fortunately Docker allows us to spoof the MAC address so we can run multiple copies of the software. If you do this just change the MAC so it's unique for each copy of the software.
+
+Let's now run the image and watch the logs:
+
+**Note**: Run this docker command from the /eyes-in-the-sky/flightaware/ directory so that it can find the piaware.conf file. 
+
+```
+docker run --mac-address 02:42:ac:11:44:01 -v `pwd`/piaware.conf:/etc/piaware.conf --name piaware_1 -d alexellis2/piaware:3.5.0
+```
+
+After a few moments you should see your pi on the flightaware website. 
+https://flightaware.com/adsb/stats/user/**YOUR_USERNAME**
+
+
+
+
+
 
 
 
