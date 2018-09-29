@@ -2,7 +2,9 @@
 
 ![](images/cover.jpg)
 
-**Session Objective:**  This is a simple little project to demonstrate docker on a RasperyPi and provide you with an introduction to the simplicity and power of containers. 
+**Session Objective:**  This is a simple little project to demonstrate docker on a Raspery Pi and provide you with an introduction to the simplicity and power of containers. 
+
+I will attempt to drop some basic knowledge about Docker and Containers throughout this example. Pay attention!!!!
 
 ---
 
@@ -16,6 +18,7 @@ Here are some good links to reference. We are using some of the information in t
 - https://github.com/LoungeFlyZ/eyes-in-the-sky
 
 - https://flightaware.com/adsb/piaware/install
+- https://github.com/thibmaek/awesome-raspberry-pi#projects
 
 **What is ADS-B**
 Modern aircraft have automatic transponders on board which gather info from navigational instruments and broadcast it to the surrounding area using ADS-B. It's not encrypted so anyone can pick it up whether you're a flight controller, another plane or even a Raspberry Pi owner.
@@ -87,10 +90,13 @@ ssh pi@<yourdomainname>.duckdns.org
 ## Install Docker on the Pi
 We need to install Docker on the Pi, so that we can pull some images down from docker hub and deploy them as running continaers on the pi. 
 
+YEP.. It installs with one command. 
 
 ```
 curl -sSL https://get.docker.com | sh
 ```
+
+**Learn Some Docker Stuff** https://training.play-with-docker.com/s
 
 Once this completes, we can test it by runnig the docker help command 
 
@@ -142,6 +148,14 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
+```
+
+### Running Docker on a Raspberry Pi - Things to know!!
+
+Here we run Docker on a Raspberry Pi. So the CPU architecture here is ARM rather than x86/x64 by Intel or AMD. Thus, Docker-based apps you use have to be packaged specifically for ARM architecture! Docker-based apps packaged for x86/x64 will not work and will result in an error such as:
+
+```
+FATA[0003] Error response from daemon: Cannot start container 0f0fa3f8e510e53908e6a459e817d600b9649e621e7dede974d6a65761ad39e5: exec format error
 ```
 
 
