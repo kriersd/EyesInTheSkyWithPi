@@ -235,26 +235,38 @@ The docker run command is responsible for starting our code.
 - the -d flag puts the container into the background as a daemon, so if you want to see the console output just type in docker logs --tail 20 -f 1090
 
 **View the web page produced by this container** : http://<PI IP Address>:8080/
+
 **Note** _You can use your domainname.duckdns.org:8080 instead of the ip address. Both should work!_
+
 - You will need to move the map to your location to see aircraft in your area. My range is about 100 Miles.
 
 ![](images/Flightaware1.jpg)
 
-To remove the image you can use this command
-**Note**: You will need to issue the full docker run command (above) to restart the container from the image if you issue the _docker rm_ command.
-**Remember** containers are a runable instance of the image.
+## Removing Containers 
+
+**Note**: If you do this, you will need to issue the full docker run command (above) to restart the container from the image if you issue the _docker rm_ command.
+
+**Remember** containers are a runable instance of the image. You still have the image loaded even if you remove the container. 
+
 
 ```
 docker rm -f 1090
 ```
 
-To stop the container you can use this command
-**Note**: It will use the same parameters as defined in the run command.
+## Stoping / Starting Containers
+
+**Note**: Stoping the container doesn't remove it. It's still there and can be started again anytime. I sometimes stop containers to free up some processing power on the machine, so I can run other containers. 
+
 ```
 docker stop 1090
 ```
 
-To start the container again you can use this command.
+To start the container up again you can use this command.
+
+**Note**: The start command will still uses the parameters you specified in the run coommand (see below), but you don't have to specify them again to start it up. 
+> --privileged -p 8080:8080 -p 30005:30005 -p 30003:30003 --privileged --name 1090 -d alexellis2/dump1090:malcolmrobb
+> }
+
 ```
 docker start 1090
 ```
