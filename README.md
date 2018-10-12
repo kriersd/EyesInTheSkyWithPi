@@ -13,12 +13,11 @@ I will attempt to drop some basic knowledge about Docker and Containers througho
 **Here are the links to other blogs and github pages for reference**
 Here are some good links to reference. We are using some of the information in these links to build our docker images.
 
-- https://blog.alexellis.io/track-flights-with-rpi/
-- https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile
-- https://github.com/LoungeFlyZ/eyes-in-the-sky
-
-- https://flightaware.com/adsb/piaware/install
-- https://github.com/thibmaek/awesome-raspberry-pi#projects
+- [https://blog.alexellis.io/track-flights-with-rpi/](https://blog.alexellis.io/track-flights-with-rpi/)
+- [https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile](https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile)
+- [https://github.com/LoungeFlyZ/eyes-in-the-sky](https://github.com/LoungeFlyZ/eyes-in-the-sky)
+- [https://flightaware.com/adsb/piaware/install](https://flightaware.com/adsb/piaware/install)
+- [https://github.com/thibmaek/awesome-raspberry-pi#projects](https://github.com/thibmaek/awesome-raspberry-pi#projects)
 
 **What is ADS-B**
 Modern aircraft have automatic transponders on board which gather info from navigational instruments and broadcast it to the surrounding area using ADS-B. It's not encrypted so anyone can pick it up whether you're a flight controller, another plane or even a Raspberry Pi owner.
@@ -301,7 +300,7 @@ docker ps -a
 ## Installing FlightAware
 There are several flight-tracking websites available, but lets start  out with this one. Their software connects to your dump1090 code and streams your data to their online servers where you can collate statistics and compare your range and statistics with others through leaderboards.
 
-You will need an account on the FlightAware.com website.
+You will need an account on the [FlightAware.com](http://www.flightaware.com) website.
 - Now sign up on the FlightAware.com website for a username and password.
 
 **Note**: Don't forget the dot at the end of the command.
