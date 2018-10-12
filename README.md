@@ -170,9 +170,15 @@ If you just type cd and enter that will put you in your home directory. We do th
 cd
 ```
 Now let's clone that directory.
+
 ```
-git clone https://github.com/alexellis/eyes-in-the-sky
+git clone https://github.com/kriersd/EyesInTheSkyWithPi
 ```
+Here is the repository that I based my work on. The docker images are exatly the same in my repostory. I just don't control this repository, so I cloned it save a copy. 
+
+> 
+> git clone https://github.com/alexellis/eyes-in-the-sky
+
 ## Blacklist the USB TV stick
 In order for the dump1090 software to access the USB TV stick we have to create a blacklist entry for its kernel module.
 
