@@ -207,10 +207,14 @@ ssh pi@<yourdomain>.duckdns.org
 ```
 
 ## Build the docker image.
-Change directory to this folder. You should be at your home directory as soon as you log in.
+Change directory to the folder you cloned it to. You should be at your home directory as soon as you log in.
+
 ```
-cd eyes-in-the-sky/
+cd EyesInTheSkyWithPi   
 ```
+
+>*You may have named your directory something differnet. Change directoory to what ever directory you cloned it to*
+
 
 Now run the build (This is all one command)
 ```
