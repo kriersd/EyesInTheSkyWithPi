@@ -1,0 +1,36 @@
+https://blog.alexellis.io/track-flights-with-rpi/
+
+https://github.com/alexellis/eyes-in-the-sky/blob/master/flightaware/Dockerfile
+https://github.com/LoungeFlyZ/eyes-in-the-sky
+
+
+** Download and install OS on SSD Card
+- Download the OS ZIP for Rasparian Stretch with Desktop (I use desktop) 
+	https://www.raspberrypi.org/downloads/raspbian/
+- Download Etcher to burn the image to the SSD Card. 
+	https://etcher.io/
+- Boot your Raspberry Pi and configure the OS
+	- Setup WIFI
+
+
+** Setup dynamic IP
+https://www.noip.com/
+- sign jup for account
+- create a dynamic domain name
+
+- Install Dynamic Update Client (DUC)
+	- https://my.noip.com/#!/dynamic-dns/duc
+	- Download the DUC and save the file to: /usr/local/src
+
+		Open terminal and execute the following:
+		cd /usr/local/src
+		tar xzf noip-duc-linux.tar.gz
+		cd no-ip-2.1.9
+		make
+		make install
+		Create the configuration file: /usr/local/bin/noip2 -C
+		You will be prompted to enter your username and password for No-IP, and for the hostnames you wish to update.
+		Launch the DUC: /usr/local/bin/noip2
+
+** Setup SSH 
+https://www.raspberrypi.org/documentation/remote-access/ssh
